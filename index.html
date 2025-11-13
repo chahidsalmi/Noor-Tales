@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>حكايات النور – قصص صحابة النبي ﷺ</title>
+<link rel="icon" href="icon.png">
+
+<style>
+/* ===========================
+   RESET & BASE
+=========================== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: "Tajawal", "Cairo", sans-serif;
+    background: #f7d778;
+    color: #3a2a00;
+    overflow-x: hidden;
+    direction: rtl;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at top right, #ffe9a8 0, transparent 55%),
+                radial-gradient(circle at bottom left, #f0bd4a 0, transparent 60%);
+    opacity: 0.6;
+    z-index: -1;
+}
+
+/* ===========================
+   HEADER
+=========================== */
+header {
+    position: fixed;
+    inset-inline: 0;
+    top: 0;
+    padding: 16px 7vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(14px);
+    background: rgba(255, 215, 120, 0.65);
+    border-bottom: 1px solid rgba(255,255,255,0.5);
+    z-index: 1000;
+    opacity: 0;
+    animation: fadeDown .8s ease forwards;
+}
+@keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.logo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.logo-img {
+    height: 40px;
+    border-radius: 5px;
+}
+.logo-text {
+    font-weight: 700;
+    font-size: 20px;
+}
+
+nav a {
+    margin-right: 24px;
+    text-decoration: none;
+    font-weight: 600;
+    color: #3a2a00;
+    position: relative;
+    font-size: 14px;
+}
+nav a::after {
+    content: "";
+    position: absolute;
+    left: 0; bottom: -4px;
+    width: 0; height: 2px;
+    background: #8a6400;
+    transition: width .25s ease;
+}
+nav a:hover::after { width: 100%; }
+
+/* ===== LANG SWITCH ===== */
+.lang-switch a {
+    margin-right: 14px;
+    font-size: 13px;
+    color: #5a3d00;
+    font-weight: 600;
+    text-decoration: none;
+}
+.lang-switch a:hover {
+    text-decoration: underline;
+}
+
+/* ===========================
+   HAMBURGER (MOBILE)
+=========================== */
+.hamburger-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+}
+.hamburger-btn svg {
+    width: 26px;
+    height: 26px;
+    stroke: #3a2a00;
+    stroke-width: 2.5;
+}
+
+/* ===========================
+   FULLSCREEN MOBILE MENU
+=========================== */
+.mobile-menu {
+    position: fixed;
+    inset: 0;
+    background: rgba(255, 220, 150, 0.97);
+    backdrop-filter: blur(10px);
+    display: none;
+    flex-direction: column;
+    padding: 40px 30px;
+    z-index: 2000;
+    animation: menuFade .25s ease forwards;
+}
+@keyframes menuFade {
+    from { opacity: 0; transform: scale(1.03); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+.mobile-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-menu {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.close-menu svg {
+    width: 30px;
+    height: 30px;
+    stroke: #3a2a00;
+    stroke-width: 2.5;
+}
+
+.mobile-menu-links {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.mobile-menu-links a {
+    font-size: 22px;
+    font-weight: 700;
+    color: #3a2a00;
+    text-decoration: none;
+}
+
+.mobile-lang {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.mobile-lang a {
+    font-size: 16px;
+    color: #5a3d00;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* ===========================
+   HERO
+=========================== */
+.hero {
+    padding: 140px 7vw 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+}
+.hero-text {
+    max-width: 520px;
+}
+.hero-kicker {
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    font-size: 11px;
+    font-weight: 600;
+    color: #7b5c06;
+    margin-bottom: 10px;
+}
+.hero-text h1 {
+    font-size: clamp(32px, 4vw, 46px);
+    line-height: 1.3;
+    font-weight: 700;
+}
+.hero-text h1 span {
+    color: #8a6400;
+}
+.hero-text p {
+    margin-top: 18px;
+    font-size: 16px;
+    color: #4b3702;
+}
+
+.hero-actions {
+    margin-top: 26px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.btn {
+    padding: 11px 24px;
+    border-radius: 999px;
+    border: none;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+.btn-primary {
+    background: linear-gradient(135deg, #8a6400, #c89c25);
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    text-decoration: none;
+    display: inline-block;
+}
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 22px rgba(0,0,0,0.3);
+}
+
+/* Hero Card */
+.hero-card {
+    flex: 1;
+    max-width: 420px;
+    background: rgba(255,255,255,0.65);
+    border-radius: 24px;
+    padding: 18px 20px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+    animation: floatHero 4s ease-in-out infinite;
+}
+@keyframes floatHero {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
+.hero-img{
+    width: 100%;
+    border-radius: 18px;
+}
+.hero-card h3 {
+    text-align: center;
+    margin-top: 16px;
+    color: #6c4c02;
+}
+.hero-card p {
+    font-size: 13px;
+    margin-top: 8px;
+    text-align: center;
+    color: #6e530e;
+}
+
+/* ===========================
+   SECTION BASE
+=========================== */
+.section {
+    padding: 20px 7vw 60px;
+}
+.section-heading {
+    text-align: center;
+    margin-bottom: 24px;
+}
+.section-heading h2 {
+    font-size: 26px;
+    margin-bottom: 6px;
+}
+.section-heading p {
+    font-size: 14px;
+    color: #5b4205;
+}
+
+/* ===========================
+   WHY STORIES
+=========================== */
+.why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+.why-card {
+    background: rgba(255,255,255,0.65);
+    border-radius: 18px;
+    padding: 18px;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+}
+.why-card h3 {
+    font-size: 17px;
+    margin-bottom: 8px;
+}
+.why-card p {
+    font-size: 13px;
+    color: #64470a;
+}
+
+/* ===========================
+   COMPANIONS GRID
+=========================== */
+.companions-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+}
+.companion-card {
+    background: rgba(255,255,255,0.7);
+    border-radius: 18px;
+    padding: 16px;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.09);
+}
+.companion-chip {
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 10px;
+    background: rgba(138,100,0,0.1);
+    color: #7b5c06;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+}
+.companion-card h3 {
+    margin-top: 10px;
+    font-size: 17px;
+}
+.companion-card p {
+    margin-top: 6px;
+    font-size: 12px;
+    color: #6b4c08;
+}
+.companion-link {
+    display: inline-flex;
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #8a6400;
+    text-decoration: none;
+}
+.companion-link span {
+    margin-left: 4px;
+    transition: transform .2s;
+}
+.companion-link:hover span {
+    transform: translateX(3px);
+}
+
+/* ===========================
+   FOOTER
+=========================== */
+footer {
+    padding: 28px 7vw;
+    border-top: 1px solid rgba(255,255,255,0.6);
+    font-size: 13px;
+    color: #5a4106;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+/* ===========================
+   REVEAL
+=========================== */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity .8s ease, transform .8s ease;
+}
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+@media (max-width: 960px) {
+    .hero { flex-direction: column; text-align: center; }
+    .why-grid, .companions-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 600px) {
+    nav { display: none; }
+    .lang-switch { display: none; }
+    .hamburger-btn { display: block; }
+
+    .why-grid, .companions-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-actions {
+        justify-content: center;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===========================
+     HEADER
+=========================== -->
+<header>
+    <div class="logo-wrap">
+        <img src="logo.png" alt="شعار حكايات النور" class="logo-img">
+        <span class="logo-text">حكايات النور</span>
+    </div>
+
+    <nav>
+        <a href="#hero">الرئيسية</a>
+        <a href="#families">لماذا؟</a>
+        <a href="#companions">الصحابة</a>
+    </nav>
+
+    <div class="lang-switch">
+        <a href="indexar.html">العربية</a>
+        <a href="indexen.html">English</a>
+        <a href="indexfr.html">Français</a>
+    </div>
+
+    <button class="hamburger-btn" aria-label="فتح القائمة" onclick="openMenu()">
+        <svg fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="7" x2="21" y2="7"></line>
+            <line x1="3" y1="14" x2="21" y2="14"></line>
+            <line x1="3" y1="21" x2="21" y2="21"></line>
+        </svg>
+    </button>
+</header>
+
+<!-- ===========================
+     MOBILE MENU
+=========================== -->
+<div id="mobileMenu" class="mobile-menu">
+    <div class="mobile-menu-header">
+        <div class="logo-wrap">
+            <img src="logo.png" class="logo-img" alt="">
+            <span class="logo-text" style="font-size:22px;">حكايات النور</span>
+        </div>
+
+        <button class="close-menu" aria-label="إغلاق القائمة" onclick="closeMenu()">
+            <svg fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="4" y1="4" x2="20" y2="20"></line>
+                <line x1="20" y1="4" x2="4" y2="20"></line>
+            </svg>
+        </button>
+    </div>
+
+    <div class="mobile-menu-links">
+        <a href="#hero" onclick="closeMenu()">الرئيسية</a>
+        <a href="#families" onclick="closeMenu()">لماذا؟</a>
+        <a href="#companions" onclick="closeMenu()">الصحابة</a>
+    </div>
+
+    <div class="mobile-lang">
+        <a href="index-ar.html">العربية</a>
+        <a href="index-en.html">English</a>
+        <a href="index-fr.html">Français</a>
+    </div>
+</div>
+
+<!-- ===========================
+     HERO
+=========================== -->
+<section id="hero" class="hero">
+    <div class="hero-text">
+        <div class="hero-kicker">إيمان • شجاعة • خُلُق</div>
+        <h1>قصص <span>صحابة النبي ﷺ</span> للأطفال والعائلات</h1>
+        <p>
+            حكايات النور تقدم قصصًا ملهمة عن الصحابة الكرام، مكتوبة بأسلوب بسيط
+            دافئ مليء بالحكمة؛ مناسب للصغار والكبار.
+        </p>
+
+        <div class="hero-actions">
+            <a href="#companions" class="btn btn-primary">قراءة القصص</a>
+        </div>
+    </div>
+
+    <aside class="hero-card">
+        <img src="hero.png" class="hero-img" alt="طفل يقرأ قصة">
+        <h3>نور الصحابة</h3>
+        <p>
+            قصص قصيرة ودافئة عن أبي بكر، وعمر، وعلي، وبلال، وخديجة رضي الله عنهم –
+            تحمل معاني الإيمان والرحمة والشجاعة.
+        </p>
+    </aside>
+</section>
+
+<!-- ===========================
+     WHY STORIES
+=========================== -->
+<section id="families" class="section reveal">
+    <div class="section-heading">
+        <h2>لماذا قصص الصحابة؟</h2>
+        <p>لأن القدوات الحقيقية تترك أثرًا لا يُنسى.</p>
+    </div>
+
+    <div class="why-grid">
+        <article class="why-card">
+            <h3>إيمان لا يتزعزع</h3>
+            <p>
+                من ثبات بلال تحت العذاب إلى يقين خديجة رضي الله عنهم –
+                يتعلّم الأطفال معنى الصبر على الحق والثبات عليه.
+            </p>
+        </article>
+
+        <article class="why-card">
+            <h3>شجاعة برحمة</h3>
+            <p>
+                تُظهر قصص عمر وعلي رضي الله عنهما قوة لا ظُلم فيها،
+                وشجاعة لا قسوة فيها.
+            </p>
+        </article>
+
+        <article class="why-card">
+            <h3>قصص لوقت العائلة</h3>
+            <p>
+                مكتوبة لتُقرأ بصوت عالٍ –
+                لتصنع لحظات دافئة لا تُنسى مع الأبناء.
+            </p>
+        </article>
+    </div>
+</section>
+
+<!-- ===========================
+     COMPANIONS
+=========================== -->
+<section id="companions" class="section reveal">
+    <div class="section-heading">
+        <h2>قصص مختارة من مجموعتنا</h2>
+        <p>كل بطاقة تمثل قصة أو فصلًا من حكايات النور.</p>
+    </div>
+
+    <div class="companions-grid">
+
+        <article class="companion-card">
+            <span class="companion-chip">القوة</span>
+            <span class="companion-chip">عربي</span>
+            <h3>عمر بن الخطاب</h3>
+            <p style="text-align: justify;">
+                قصة مصوّرة جميلـة تُظهر عدل عمر رضي الله عنه، وقوة الإيمان
+                التي غيّرته من الشدة إلى الرحمة، ومن رجل عادي إلى رمز خالد في التاريخ.
+            </p>
+            <a href="https://salmichahid.gumroad.com/l/lumywo" class="companion-link" target="_blank">
+                <span>→</span> قصة «الفاروق»
+            </a>
+        </article>
+
+        <article class="companion-card">
+            <span class="companion-chip">القوة</span>
+            <span class="companion-chip">English</span>
+            <h3>Umar ibn Al-Khattab</h3>
+            <p style="text-align: justify;">
+                A beautifully illustrated story showing Umar’s justice and the strength of faith
+                that transformed him from harshness to mercy, and from an ordinary man
+                into an unforgettable symbol in history.
+            </p>
+            <a href="https://salmichahid.gumroad.com/l/nidnby" class="companion-link" target="_blank">
+                <span>→</span> “The Farooq” Story
+            </a>
+        </article>
+
+        <article class="companion-card">
+            <span class="companion-chip">القوة</span>
+            <span class="companion-chip">Français</span>
+            <h3>Omar ibn Al-Khattab</h3>
+            <p style="text-align: justify;">
+                Une histoire magnifiquement illustrée montrant la justice de Omar
+                et la force de la foi qui l’a transformé d’un homme rude en un symbole
+                inoubliable de l’histoire.
+            </p>
+            <a href="https://salmichahid.gumroad.com/l/ecpsi" class="companion-link" target="_blank">
+                <span>→</span> Histoire « Al-Farouk »
+            </a>
+        </article>
+
+        <article class="companion-card">
+            <span class="companion-chip">الثبات</span>
+            <span class="companion-chip">عربي</span>
+            <h3>بلال بن رباح</h3>
+            <p style="text-align: justify;">
+                قصة مصوّرة تُظهر صبر بلال رضي الله عنه وثباته على الإيمان رغم العذاب،
+                حتى أصبح أول مؤذن في الإسلام وصوت الحق.
+            </p>
+            <a href="https://salmichahid.gumroad.com/l/ipsws" class="companion-link" target="_blank">
+                <span>→</span> قصة «المؤذن الأول»
+            </a>
+        </article>
+
+        <article class="companion-card">
+            <span class="companion-chip">الثبات</span>
+            <span class="companion-chip">English</span>
+            <h3>Bilal ibn Rabah</h3>
+            <p style="text-align: justify;">
+                A beautifully illustrated story showing Bilal’s patience and his unshakable faith
+                despite torture — until he became the first caller to prayer and
+                the voice of truth in Islam.
+            </p>
+            <a href="https://salmichahid.gumroad.com/l/kzgdoz" class="companion-link" target="_blank">
+                <span>→</span> “The First Muezzin” Story
+            </a>
+        </article>
+
+        <article class="companion-card">
+            <span class="companion-chip">الثبات</span>
+            <span class="companion-chip">Français</span>
+            <h3>Bilal ibn Rabah</h3>
+            <p style="text-align: justify;">
+                Une histoire illustrée montrant la patience de Bilal et sa foi inébranlable
+                malgré la torture, jusqu'à ce qu'il devienne le premier muezzin
+                et la voix de la vérité en Islam.
+            </p>
+            <a href="https://salmichahid.gumroad.com/l/rjkvl" class="companion-link" target="_blank">
+                <span>→</span> Histoire « Le premier muezzin »
+            </a>
+        </article>
+
+    </div>
+</section>
+
+<!-- ===========================
+     FOOTER
+=========================== -->
+<footer id="contact">
+    <span>© 2025 حكايات النور – قصص صحابة النبي ﷺ</span>
+    <span>للتواصل وحقوق النشر: noortalesstories@gmail.com</span>
+</footer>
+
+<script>
+function openMenu() {
+    document.getElementById('mobileMenu').style.display = 'flex';
+}
+function closeMenu() {
+    document.getElementById('mobileMenu').style.display = 'none';
+}
+
+// SCROLL REVEAL
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.18 });
+
+revealEls.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
